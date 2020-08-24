@@ -4,6 +4,8 @@ var logger = require('morgan');
 
 var routes = require('./routes/index');
 
+require('./config/database');
+
 var app = express();
 
 // view engine setup.

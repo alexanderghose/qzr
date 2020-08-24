@@ -1,6 +1,11 @@
 // get our connection to the socket.io server
 var socket = io();
 
+socket.on("player-input", function () {
+  console.log("trigger page refresh..")
+  window.location.reload();
+});
+
 let input = document.getElementById("input")
 var players = document.getElementById('players');
 var initials = '';

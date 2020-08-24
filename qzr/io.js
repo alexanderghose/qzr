@@ -20,6 +20,7 @@ io.on('connection', function (socket) {
     socket.on("player-input", function(data) {
       player_inputs.push(data.initials, data.input)
       console.log(player_inputs.getAll())
+      io.emit("player-input");
     })
 
     socket.on("plusOne", function(data) {
@@ -27,8 +28,10 @@ io.on('connection', function (socket) {
       console.log(player_inputs.getAllScores())
     })
 
-    socket.on('clear-display', function () {
+    socket.on('clear-display', async function () {
       io.emit('clear-display');
+      let question = ""
+      await player_inputs.saveToDB(question);
       player_inputs.clearAll();
     });
 
