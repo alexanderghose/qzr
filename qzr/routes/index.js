@@ -10,9 +10,11 @@ router.get('/', function(req, res) {
 
 router.get("/admin", function(req,res) {
   let player_data = inputs.getAll()
+  let player_scores = inputs.getAllScores();
   console.log("/admin", player_data)
   res.render("admin", {
     player_data:player_data,
+    player_scores:player_scores,
     nl2br:nl2br
   })
 

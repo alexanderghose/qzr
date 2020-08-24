@@ -27,13 +27,12 @@ button.addEventListener("click", function(evt) {
   })
 })
 
-do {//
+// do {//
   initials = getInitials();
-} while (initials.length < 2 || initials.length > 3);
-// new code below
+// } while (initials.length < 2 || initials.length > 3);
 socket.emit('register-player', initials);
 
 function getInitials() {
-  var input = prompt("Please enter your initials");
+  var input = prompt("Please enter your name (first name)");
   return input ? input.toUpperCase() : '';
 }

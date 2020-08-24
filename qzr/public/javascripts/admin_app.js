@@ -4,6 +4,16 @@ var socket = io();
 let input = document.getElementById("input")
 var players = document.getElementById('players');
 var initials = '';
-document.getElementById('clear').addEventListener('click', function() {
-    socket.emit('clear-display');
-  });  
+document.getElementById('clear').addEventListener('click', function () {
+  socket.emit('clear-display');
+  window.location.reload()
+});
+
+// add an event listener to all the buttons that have className plusOne
+var plusOneBtns = document.getElementsByClassName("plusone");
+for (let i = 0; i < plusOneBtns.length; ++i) {
+  plusOneBtns[i].addEventListener("click", function(evt) {
+    socket.emit("plusOne", {initials: evt.target.id});
+    window.location.reload()
+  })
+}

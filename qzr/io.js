@@ -22,16 +22,19 @@ io.on('connection', function (socket) {
       console.log(player_inputs.getAll())
     })
 
-    socket.on('add-circle', function (data) {
-      io.emit('add-circle', data);
-    });
+    socket.on("plusOne", function(data) {
+      player_inputs.addPoint(data.initials)
+      console.log(player_inputs.getAllScores())
+    })
 
     socket.on('clear-display', function () {
       io.emit('clear-display');
+      player_inputs.clearAll();
     });
 
     // when the player disconnects, remove key & notify clients
     socket.on('disconnect', function () {
+      player_inputs.deletePlayer(players[socket.id]);
       delete players[socket.id];
       io.emit('update-player-list', Object.keys(players).map(id => players[id]));
     });

@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-   </head>
-    <body>
-        <button id="hideshow">Hide/Show</button>
-        <button id="clear">Clear Player Answers</button><br><br>
-        <% console.log("admin.ejs",player_data) %>
-        <% for (let key in player_data) { %>
-            <% var value = player_data[key]; %>
-            <% console.log(key, value); %>
-            <strong><u><%= key %></strong></u>:<br>
-            <span class="stuff"><%- nl2br(value) %></span><br><br>
-        <% } %>
-        <script>
-            let show = 0
-            hideOrShow()
-             document.getElementById("hideshow").addEventListener("click", function(evt) {
-                  show = !show
-                  console.log("show",show)
-                  hideOrShow();
-              })
-              function hideOrShow() {
-                var divsToHide = document.getElementsByClassName("stuff"); //divsToHide is an array
-                  if (!show) {
-                      for(var i = 0; i < divsToHide.length; i++){
-                          divsToHide[i].style.visibility = "hidden"; // or 
-                     }
-                  } else {
-                    for(var i = 0; i < divsToHide.length; i++){
-                          divsToHide[i].style.visibility = "visible"; // or                      }
-                    }
-                  }
-              }
-        </script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/javascripts/admin_app.js"></script>
-    </body>
+
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <button id="hideshow">Hide/Show</button>
+  <button id="clear">Clear Player Answers</button><br><br>
+  <% console.log("admin.ejs",player_data) %>
+  <% for (let [key,value] of player_data) { %>
+  <% console.log(key, value); %>
+  <strong><u><%= key %></strong></u>
+  (
+    <% if(player_scores.has(key)) { %>
+    <%= player_scores.get(key) %>
+    <% } else { %>
+      0
+    <% } %>
+  )
+  :
+  <button class="plusone" id="<%= key %>">+1</button><br>
+  <span class="stuff"><%- nl2br(value) %></span><br><br>
+  <% } %>
+  <script>
+    let show = 0
+    hideOrShow()
+    document.getElementById("hideshow").addEventListener("click", function (evt) {
+      show = !show
+      console.log("show", show)
+      hideOrShow();
+    })
+
+
+    function hideOrShow() {
+      var divsToHide = document.getElementsByClassName("stuff"); //divsToHide is an array
+      if (!show) {
+        for (var i = 0; i < divsToHide.length; i++) {
+          divsToHide[i].style.visibility = "hidden"; // or 
+        }
+      } else {
+        for (var i = 0; i < divsToHide.length; i++) {
+          divsToHide[i].style.visibility = "visible"; // or                      }
+        }
+      }
+    }
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/javascripts/admin_app.js"></script>
+</body>
+
 </html>
