@@ -3,7 +3,7 @@ var socket = io();
 
 socket.on("player-input", function () {
   console.log("trigger page refresh..")
-  window.location.reload();
+//  window.location.reload();
 });
 
 let input = document.getElementById("input")
