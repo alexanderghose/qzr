@@ -7,22 +7,23 @@
 </head>
 
 <body>
-  <button id="hideshow">Hide/Show</button>
-  <button id="clear">Clear Player Answers</button><br><br>
+  <section>
+      <button id="hideshow">Hide/Show</button>
+      <button id="clear">Clear Player Answers</button>
+  </section><br><br>
   <% console.log("admin.ejs",player_data) %>
   <% for (let [key,value] of player_data) { %>
   <% console.log(key, value); %>
-  <strong><u><%= key %></strong></u>
-  (
-    <% if(player_scores.has(key)) { %>
-    <%= player_scores.get(key) %>
-    <% } else { %>
-      0
-    <% } %>
-  )
-  :
-  <button class="plusone" id="<%= key %>">+1</button><br>
-  <span class="stuff"><%- nl2br(value) %></span><br><br>
+  <div class="answerbox">
+      <strong><u><%= key %></strong></u>
+      <% if(player_scores.has(key)) { %>
+        ( <%= player_scores.get(key) %> ):
+      <% } else { %>
+        ( 0 ):
+      <% } %>
+      <button class="plusone" id="<%= key %>">+1</button><br>
+      <span class="stuff"><%- formatstr(value) %></span><br><br>
+      </div>
   <% } %>
   <script>
     let show = 0

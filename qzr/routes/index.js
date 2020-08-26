@@ -1,12 +1,25 @@
 var express = require('express');
 var router = express.Router();
 let inputs = require("../models/player_inputs")
-let nl2br = require("nl2br")
 
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index');
 });
+
+function formatstr(text) {
+  let text_so_far = ""
+  for (let i = 0; i < text.length; i++) {
+    if (text.charAt(i) == '\n') {
+      text_so_far += "<br>"
+    } else if (text.charAt(i) == ' ') {
+      text_so_far += "&nbsp"
+    } else {
+      text_so_far += text.charAt(i)
+    }
+  }
+  return text_so_far;
+}
 
 router.get("/admin", function(req,res) {
   let player_data = inputs.getAll()
@@ -15,7 +28,7 @@ router.get("/admin", function(req,res) {
   res.render("admin", {
     player_data:player_data,
     player_scores:player_scores,
-    nl2br:nl2br
+    formatstr:formatstr
   })
 
 })
