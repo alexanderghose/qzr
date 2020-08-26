@@ -19,6 +19,6 @@ var plusOneBtns = document.getElementsByClassName("plusone");
 for (let i = 0; i < plusOneBtns.length; ++i) {
   plusOneBtns[i].addEventListener("click", function(evt) {
     socket.emit("plusOne", {initials: evt.target.id});
-    window.location.reload()
+    //window.location.reload()
   })
 }
