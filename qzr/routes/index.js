@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 let inputs = require("../models/player_inputs")
 
+
+router.get('/get_algorithm_question', function(req,res) {
+  res.send('Random algorithm question coming right up')
+});
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index');
